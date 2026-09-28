@@ -1,0 +1,710 @@
+/* =========================================================
+   USHNA SETU — MODERN LIGHT THEME (PRD Section 5)
+   Clean, eye-nourishing, authoritative disaster-response portal
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* Warm eye-nourishing heat palette (matching Citizen Portal) */
+  --bg-page: #FFFDF9;
+  --warm-bg: radial-gradient(ellipse at 80% 0%, rgba(254, 215, 170, 0.32) 0%, rgba(255, 247, 237, 0.55) 35%, #FFFDF9 90%);
+  --bg-surface: #FFFFFF;
+  --bg-surface-subtle: #FFF7ED;
+  --bg-surface-elevated: #FFFFFF;
+  
+  /* Warm hairline borders */
+  --warm-border: #FED7AA;
+  --border-subtle: #FED7AA;
+  --border-strong: #FDBA74;
+  --border-focus: #EA580C;
+
+  /* Typography Colors */
+  --text-primary: #0F172A;
+  --text-secondary: #334155;
+  --text-muted: #64748B;
+  --text-light: #94A3B8;
+
+  /* Brand / Civic Accents — Warm Sun & Alert Flare */
+  --brand-primary: #EA580C;
+  --brand-primary-hover: #C2410C;
+  --brand-primary-light: #FFF7ED;
+  --brand-navy: #1E293B;
+
+  /* Official NDMA / IMD Alert Risk Gradient */
+  --risk-extreme: #DC2626;
+  --risk-extreme-bg: #FEF2F2;
+  --risk-extreme-border: #FCA5A5;
+  --risk-extreme-text: #991B1B;
+
+  --risk-high: #EA580C;
+  --risk-high-bg: #FFF7ED;
+  --risk-high-border: #FDBA74;
+  --risk-high-text: #9A3412;
+
+  --risk-moderate: #D97706;
+  --risk-moderate-bg: #FFFBEB;
+  --risk-moderate-border: #FDE68A;
+  --risk-moderate-text: #92400E;
+
+  --risk-low: #16A34A;
+  --risk-low-bg: #F0FDF4;
+  --risk-low-border: #86EFAC;
+  --risk-low-text: #166534;
+
+  /* Fonts */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Radii & Warm Shadows */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 1px 3px 0 rgba(251, 146, 60, 0.08);
+  --shadow-card: 0 2px 8px 0 rgba(251, 146, 60, 0.08);
+  --shadow-warm-sm: 0 2px 10px rgba(251, 146, 60, 0.08);
+  --shadow-warm-md: 0 4px 18px rgba(251, 146, 60, 0.12);
+  --shadow-hover: 0 6px 18px -2px rgba(234, 88, 12, 0.15);
+  --shadow-elevated: 0 20px 25px -5px rgba(234, 88, 12, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.06);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--warm-bg);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.tabular-nums, .num-display {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* =========================================================
+   TOP NAVIGATION BAR (Warm Heat Eye-Nourishing Chrome)
+   ========================================================= */
+
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--warm-bg);
+  background-attachment: fixed;
+}
+
+.portal-header {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--warm-border);
+  padding: 12px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(251, 146, 60, 0.06);
+}
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-badge-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #FF6B00 0%, #FFA800 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  box-shadow: 0 3px 10px rgba(255, 107, 0, 0.3);
+}
+
+.brand-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 700;
+  color: #9A3412;
+  line-height: 1.15;
+}
+
+.brand-subtitle {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Role Selector Capsule */
+.role-nav-capsule {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 4px;
+  border-radius: 999px;
+  border: 1px solid var(--warm-border);
+  gap: 3px;
+  box-shadow: 0 1px 4px rgba(251, 146, 60, 0.05);
+}
+
+.role-tab-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.16s ease;
+}
+
+.role-tab-btn:hover {
+  color: #9A3412;
+  background-color: #FFF7ED;
+}
+
+.role-tab-btn.active {
+  background: linear-gradient(135deg, #FF6B00 0%, #EA580C 100%);
+  color: #FFFFFF;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.28);
+  border: 1px solid transparent;
+}
+
+/* =========================================================
+   CARDS & PANELS (Warm Light Theme)
+   ========================================================= */
+
+.light-card {
+  background-color: #FFFFFF;
+  border: 1px solid var(--warm-border);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: var(--shadow-warm-sm);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.light-card:hover {
+  box-shadow: var(--shadow-warm-md);
+  border-color: #FDBA74;
+}
+
+/* Index Stat Card (NOAA HI, WBGT, HTSI) */
+.index-stat-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  border-left-width: 4px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.2s ease;
+}
+
+.index-stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.index-number-huge {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1;
+  margin: 6px 0 2px 0;
+  letter-spacing: -0.02em;
+}
+
+/* Risk Badges (Crisp Light Theme) */
+.risk-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.risk-pill.extreme {
+  background-color: var(--risk-extreme-bg);
+  color: var(--risk-extreme-text);
+  border: 1px solid var(--risk-extreme-border);
+}
+
+.risk-pill.high {
+  background-color: var(--risk-high-bg);
+  color: var(--risk-high-text);
+  border: 1px solid var(--risk-high-border);
+}
+
+.risk-pill.moderate {
+  background-color: var(--risk-moderate-bg);
+  color: var(--risk-moderate-text);
+  border: 1px solid var(--risk-moderate-border);
+}
+
+.risk-pill.low {
+  background-color: var(--risk-low-bg);
+  color: var(--risk-low-text);
+  border: 1px solid var(--risk-low-border);
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: var(--brand-primary);
+  color: #FFFFFF;
+  border: 1px solid transparent;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 0.15s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--brand-primary-hover);
+}
+
+.btn-danger {
+  background-color: var(--risk-extreme);
+  color: #FFFFFF;
+  border: 1px solid transparent;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 0.15s ease;
+}
+
+.btn-danger:hover {
+  background-color: #B91C1C;
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--text-secondary);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-outline:hover {
+  background-color: var(--bg-surface-subtle);
+  color: var(--text-primary);
+}
+
+/* =========================================================
+   MAP LEAFLET LIGHT THEME
+   ========================================================= */
+
+.map-wrapper-box {
+  width: 100%;
+  height: 520px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  position: relative;
+  box-shadow: var(--shadow-sm);
+  background-color: #E2E8F0;
+}
+
+/* Pulse animation */
+@keyframes soft-pulse {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+.pulse-active {
+  animation: soft-pulse 2s infinite ease-in-out;
+}
+
+/* =========================================================
+   USHNA SETU — WARM SOLAR RADIANCE & COOLING OASIS LIGHT THEME
+   Eye-nourishing, warm amber sunlit aesthetic with cooling oasis bridge
+   ========================================================= */
+
+:root {
+  --sun-gold: #F59E0B;
+  --sun-flare: #EA580C;
+  --sun-fire: #DC2626;
+  --sun-amber: #D97706;
+  --oasis-blue: #0284C7;
+  --oasis-cyan: #0EA5E9;
+  --oasis-light: #E0F2FE;
+  --oasis-emerald: #10B981;
+  --oasis-emerald-light: #ECFDF5;
+  --warm-bg-canvas: #FFFDF9;
+  --warm-bg-subtle: #FFF8F1;
+  --warm-border: #FED7AA;
+  --warm-border-subtle: #FFEDD5;
+  --card-glass: rgba(255, 255, 255, 0.96);
+  --shadow-warm-sm: 0 2px 8px -2px rgba(234, 88, 12, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-warm-md: 0 10px 25px -5px rgba(234, 88, 12, 0.1), 0 4px 10px -2px rgba(0, 0, 0, 0.04);
+  --shadow-warm-lg: 0 20px 35px -8px rgba(234, 88, 12, 0.14), 0 8px 16px -4px rgba(0, 0, 0, 0.06);
+}
+
+/* Heat Solar Glow Card */
+.solar-hero-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 247, 237, 0.94) 100%);
+  border: 1px solid var(--warm-border);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-warm-md);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.solar-hero-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-warm-lg);
+}
+
+.solar-hero-card::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.28) 0%, rgba(234, 88, 12, 0.12) 50%, transparent 75%);
+  pointer-events: none;
+  animation: solar-breathing 4s infinite alternate ease-in-out;
+}
+
+@keyframes solar-breathing {
+  0% { transform: scale(0.9) rotate(0deg); opacity: 0.7; }
+  100% { transform: scale(1.15) rotate(15deg); opacity: 1; }
+}
+
+/* Audio Waveform Bars (TTS Speaking) */
+.audio-wave-container {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 20px;
+}
+
+.audio-bar {
+  width: 3.5px;
+  background-color: #FFFFFF;
+  border-radius: 3px;
+  animation: wave-bar 0.9s infinite ease-in-out alternate;
+}
+.audio-bar:nth-child(1) { animation-delay: 0.0s; height: 8px; }
+.audio-bar:nth-child(2) { animation-delay: 0.2s; height: 16px; }
+.audio-bar:nth-child(3) { animation-delay: 0.4s; height: 12px; }
+.audio-bar:nth-child(4) { animation-delay: 0.1s; height: 18px; }
+.audio-bar:nth-child(5) { animation-delay: 0.3s; height: 10px; }
+
+@keyframes wave-bar {
+  0% { height: 4px; }
+  100% { height: 19px; }
+}
+
+/* Pagination Control Buttons */
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: #FFFFFF;
+  border-top: 1px solid var(--border-subtle);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  margin-top: 4px;
+}
+
+.page-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  background: #FFFFFF;
+  color: var(--text-secondary);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.page-btn:hover:not(:disabled) {
+  background: #F8FAFC;
+  border-color: var(--brand-primary);
+  color: var(--brand-primary);
+}
+
+.page-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.page-num-pill {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid var(--border-subtle);
+  background: #FFFFFF;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.page-num-pill.active {
+  background: var(--brand-primary);
+  color: #FFFFFF;
+  border-color: var(--brand-primary);
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.3);
+}
+
+/* Safe Excursion Timeline */
+.timeline-track {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 6px 2px 10px 2px;
+  scrollbar-width: thin;
+}
+
+.time-slot-card {
+  flex: 1;
+  min-width: 82px;
+  padding: 10px 8px;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  border: 1px solid transparent;
+}
+
+.time-slot-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.time-slot-card.safe {
+  background: #F0FDF4;
+  border-color: #BBF7D0;
+  color: #166534;
+}
+
+.time-slot-card.caution {
+  background: #FFFBEB;
+  border-color: #FDE68A;
+  color: #92400E;
+}
+
+.time-slot-card.danger {
+  background: #FEF2F2;
+  border-color: #FECACA;
+  color: #991B1B;
+}
+
+.time-slot-card.extreme {
+  background: #FFF1F2;
+  border-color: #FDA4AF;
+  color: #9F1239;
+  position: relative;
+}
+
+.time-slot-card.active-slot {
+  box-shadow: 0 0 0 2px #0284C7;
+}
+
+/* Hydration Progress Ring / Streak */
+.hydration-box {
+  background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%);
+  border: 1px solid #BAE6FD;
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-warm-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.hydration-box::after {
+  content: '💧';
+  position: absolute;
+  right: -10px;
+  bottom: -15px;
+  font-size: 80px;
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+/* Symptom triage step pill */
+.triage-option-btn {
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: left;
+  border: 1px solid #E2E8F0;
+  background: #FFFFFF;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.triage-option-btn:hover {
+  border-color: #0284C7;
+  background: #F0F9FF;
+}
+
+.triage-option-btn.selected {
+  border-color: #0284C7;
+  background: #E0F2FE;
+  color: #0369A1;
+  font-weight: 700;
+}
+
+/* =========================================================
+   RESPONSIVE CITIZEN PORTAL & FORECAST PLOT ENHANCEMENTS
+   Clean element sizing, mobile-first alignment & interactive SVG plots
+   ========================================================= */
+
+.citizen-tab-capsule {
+  display: flex;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 4px;
+  border-radius: 12px;
+  border: 1px solid var(--warm-border);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.citizen-tab-capsule::-webkit-scrollbar {
+  display: none;
+}
+
+.citizen-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: #64748B;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.18s ease;
+  flex-shrink: 0;
+}
+
+.citizen-tab-btn:hover {
+  color: #9A3412;
+  background: #FFF7ED;
+}
+
+.citizen-tab-btn.active {
+  background: linear-gradient(135deg, #FF6B00 0%, #EA580C 100%);
+  color: #FFFFFF;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.3);
+}
+
+/* Responsive Forecast Plot */
+.forecast-plot-svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  user-select: none;
+}
+
+.plot-dot {
+  transition: r 0.2s ease, fill 0.2s ease;
+  cursor: pointer;
+}
+
+.plot-dot:hover {
+  r: 7;
+}
+
+/* Mobile Media Queries */
+@media (max-width: 768px) {
+  .solar-hero-card {
+    padding: 16px 18px !important;
+  }
+  .solar-hero-card .hero-temp-num {
+    font-size: 42px !important;
+  }
+  .citizen-tab-btn {
+    padding: 7px 10px !important;
+    font-size: 12px !important;
+  }
+  .timeline-track {
+    gap: 4px !important;
+  }
+  .time-slot-card {
+    min-width: 72px !important;
+    padding: 8px 6px !important;
+  }
+  .pagination-container {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+}
+
+
