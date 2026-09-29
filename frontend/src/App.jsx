@@ -15,9 +15,19 @@ import AdminConsole from './components/AdminConsole';
 import CitizenPortal from './components/CitizenPortal';
 import AshaPortal from './components/AshaPortal';
 import ResearcherPortal from './components/ResearcherPortal';
+import {
+  getMockWards,
+  getMockCityOverview,
+  getMockWardDetail,
+  getMockAlerts,
+  getMockActions,
+  getMockMethodology,
+  addMockAction,
+  addMockAlert
+} from './data/mockService';
 
 export default function App() {
-  // Roles: 'citizen', 'asha', 'officer', 'disaster_mgmt', 'researcher'
+  // Roles: 'citizen', 'asha', 'officer'
   const [activeRole, setActiveRole] = useState('citizen');
   const [cityData, setCityData] = useState(null);
   const [wards, setWards] = useState([]);
@@ -35,32 +45,51 @@ export default function App() {
   const [showSimBar, setShowSimBar] = useState(false);
 
   const fetchData = async () => {
+    setLoading(true);
     try {
-      setLoading(true);
       const queryParams = `?temp_offset=${simTempOffset}&rh_offset=${simRhOffset}&solar_offset=${simSolarOffset}`;
       
       const [wardsRes, cityRes, alertsRes, actionsRes, methRes] = await Promise.all([
-        fetch(`/api/wards${queryParams}`).then(r => r.json()),
-        fetch(`/api/city/overview${queryParams}`).then(r => r.json()),
-        fetch('/api/alerts').then(r => r.json()),
-        fetch('/api/actions').then(r => r.json()),
-        fetch('/api/methodology').then(r => r.json())
+        fetch(`/api/wards${queryParams}`).then(r => { if (!r.ok) throw new Error('API failed'); return r.json(); }),
+        fetch(`/api/city/overview${queryParams}`).then(r => { if (!r.ok) throw new Error('API failed'); return r.json(); }),
+        fetch('/api/alerts').then(r => { if (!r.ok) throw new Error('API failed'); return r.json(); }),
+        fetch('/api/actions').then(r => { if (!r.ok) throw new Error('API failed'); return r.json(); }),
+        fetch('/api/methodology').then(r => { if (!r.ok) throw new Error('API failed'); return r.json(); })
       ]);
 
-      setWards(wardsRes.wards || []);
+      const wardsList = wardsRes.wards || [];
+      setWards(wardsList);
       setCityData(cityRes);
       setAlertsList(alertsRes.alerts || []);
       setActionsLog(actionsRes.actions || []);
       setMethodologyData(methRes);
 
-      if (wardsRes.wards && wardsRes.wards.length > 0) {
-        const currentId = selectedWard ? selectedWard.id : wardsRes.wards[0].id;
-        const matched = wardsRes.wards.find(w => w.id === currentId) || wardsRes.wards[0];
+      if (wardsList.length > 0) {
+        const currentId = selectedWard ? selectedWard.id : wardsList[0].id;
+        const matched = wardsList.find(w => w.id === currentId) || wardsList[0];
         setSelectedWard(matched);
         fetchWardDetail(matched.id);
       }
     } catch (err) {
-      console.error("Backend fetch error:", err);
+      console.warn("Backend API not reachable; falling back to bundled dummy dataset for deployment:", err);
+      const wardsList = getMockWards(simTempOffset, simRhOffset, simSolarOffset);
+      const cityRes = getMockCityOverview(simTempOffset, simRhOffset, simSolarOffset);
+      const alertsList = getMockAlerts();
+      const actionsList = getMockActions();
+      const methRes = getMockMethodology();
+
+      setWards(wardsList);
+      setCityData(cityRes);
+      setAlertsList(alertsList);
+      setActionsLog(actionsList);
+      setMethodologyData(methRes);
+
+      if (wardsList.length > 0) {
+        const currentId = selectedWard ? selectedWard.id : wardsList[0].id;
+        const matched = wardsList.find(w => w.id === currentId) || wardsList[0];
+        setSelectedWard(matched);
+        setWardDetail(getMockWardDetail(matched.id, simTempOffset, simRhOffset, simSolarOffset));
+      }
     } finally {
       setLoading(false);
     }
@@ -73,9 +102,12 @@ export default function App() {
       if (res.ok) {
         const data = await res.json();
         setWardDetail(data);
+        return;
       }
+      throw new Error("Ward detail failed");
     } catch (err) {
-      console.error("Error fetching ward detail:", err);
+      const fallbackDetail = getMockWardDetail(wardId, simTempOffset, simRhOffset, simSolarOffset);
+      setWardDetail(fallbackDetail);
     }
   };
 
@@ -101,9 +133,15 @@ export default function App() {
         if (selectedWard && selectedWard.id === payload.ward_id) {
           fetchWardDetail(selectedWard.id);
         }
+        return;
       }
+      throw new Error("Action trigger failed");
     } catch (err) {
-      console.error("Error triggering action:", err);
+      const data = addMockAction(payload);
+      setActionsLog(prev => [data.action, ...prev]);
+      if (selectedWard && selectedWard.id === payload.ward_id) {
+        fetchWardDetail(selectedWard.id);
+      }
     }
   };
 
@@ -119,8 +157,11 @@ export default function App() {
         setAlertsList(prev => [data.alert, ...prev]);
         return data;
       }
+      throw new Error("Alert dispatch failed");
     } catch (err) {
-      console.error("Error dispatching alert:", err);
+      const data = addMockAlert(payload);
+      setAlertsList(prev => [data.alert, ...prev]);
+      return data;
     }
   };
 
@@ -169,24 +210,6 @@ export default function App() {
           >
             <Building2 size={14} />
             <span>Ward Health Officer</span>
-          </button>
-
-          <button
-            className={`role-tab-btn ${activeRole === 'disaster_mgmt' ? 'active' : ''}`}
-            onClick={() => setActiveRole('disaster_mgmt')}
-            title="City Disaster Management Authority Command Center"
-          >
-            <Shield size={14} />
-            <span>Disaster Authority</span>
-          </button>
-
-          <button
-            className={`role-tab-btn ${activeRole === 'researcher' ? 'active' : ''}`}
-            onClick={() => setActiveRole('researcher')}
-            title="NCMRWF & Scientific Researcher Portal"
-          >
-            <BookOpen size={14} />
-            <span>NCMRWF Researcher</span>
           </button>
         </div>
 
